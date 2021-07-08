@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homeautomation/models/routeargument.dart';
 import 'package:homeautomation/pages/home.dart';
+import 'package:homeautomation/pages/login.dart';
 import 'package:homeautomation/pages/mainpage.dart';
 import 'package:homeautomation/pages/profilepage.dart';
 import 'package:homeautomation/pages/roompage.dart';
@@ -11,6 +12,8 @@ class RouteGenerator {
     switch (settings.name) {
       case '/Main':
         return MaterialPageRoute(builder: (_) => MainPage());
+      case '/Login':
+        return MaterialPageRoute(builder: (_) => Login());
       case '/Room':
         return MaterialPageRoute(builder: (_) => RoomPage(argument: RouteArgument(param: args),));
       case '/Profile':

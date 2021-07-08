@@ -23,6 +23,8 @@ Radius radius30 = Radius.circular(30);
 EdgeInsets all20 = EdgeInsets.all(20);
 EdgeInsets all10 = EdgeInsets.all(10);
 EdgeInsets all8 = EdgeInsets.all(8);
+EdgeInsets all12 = EdgeInsets.all(12);
+
 
 
 EdgeInsets vert20 = EdgeInsets.symmetric(vertical: 20);

@@ -1,4 +1,4 @@
-package com.example.homeautomation
+package com.bhavsar.homeautomation
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homeautomation/elements/customprogressindicator.dart';
 import 'package:homeautomation/helpers/constants.dart';
+import 'package:google_signin/google_signin.dart';
 
 class SplashScreen extends StatefulWidget{
   @override
@@ -38,8 +39,9 @@ class PageState extends State<SplashScreen>{
   }
 
   void load() async{
+    MyGoogleSignin.initializeFirebase();
     Future.delayed(Duration(seconds: 1), (){
-      Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil('/Login', (route) => false);
     });
   }
 }
