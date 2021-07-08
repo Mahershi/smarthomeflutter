@@ -8,36 +8,52 @@ import '../app_config.dart';
 
 class RestService {
   static Dio dio = Dio();
-  static String baseUrl = AppConfig.config!.baseUrl;
+  static String baseUrl = AppConfig.config!.directUrl;
 
   static void init() {
     dio = Dio(BaseOptions(
       baseUrl: baseUrl,
-    ))
-      ..interceptors.add(AppInterceptors());
+      connectTimeout: 3000,
+    ));
+      // ..interceptors.add(AppInterceptors());
     print(baseUrl.toString());
-    dio.interceptors
-        .add(InterceptorsWrapper(onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
-      print("Request Data ${options.data}");
-      print("RequestPath ${options.path}");
-      print("Request QP ${options.queryParameters}");
-      print("RequestORP ${options.onReceiveProgress}");
-    }, onResponse: (Response response, handler) async {
-      print("Response DATA${response.data}");// continue
-    }, onError: (DioError e, errorHandler) async {
-      print("Calling EMSG${e.message}");
-      print("Calling ETYPE${e.type}");
-      print("Calling ERES${e.response}");
-    }));
+
+    //due to handlers as a new addition in this version, dio request is not called when interceptors are added.
+    // right now interceptors are not needed
+
+    // dio.interceptors
+    //     .add(InterceptorsWrapper(onRequest: (RequestOptions options, RequestInterceptorHandler handler) async {
+    //   print("Request Data ${options.data}");
+    //   print("RequestPath ${options.path}");
+    //   print("Request QP ${options.queryParameters}");
+    //   print("RequestORP ${options.onReceiveProgress}");
+    // }, onResponse: (Response response, handler) async {
+    //   print("Response DATA${response.data}");// continue
+    // }, onError: (DioError e, errorHandler) async {
+    //   print("Calling EMSG${e.message}");
+    //   print("Calling ETYPE${e.type}");
+    //   print("Calling ERES${e.response}");
+    // }));
+    print("dio init done");
   }
 
+  static Future<void> switchToIndirect() async{
+    dio.options.baseUrl = AppConfig.config!.baseUrl;
+    dio.options.connectTimeout = 8000;
+  }
+
+  static Future<void> switchToDirect() async{
+    dio.options.baseUrl = AppConfig.config!.directUrl;
+    dio.options.connectTimeout = 3000;
+  }
 
   static Future<dynamic> request(
       {required String endpoint,
         String method = 'GET',
-        bool authRequired = true,
+        bool authRequired = false,
         Map<String, dynamic> queryParameters = const {},
-        dynamic data = const {},}) async {
+        dynamic data = const {},
+      bool direct = false}) async {
     try {
 
       String language = 'es';
@@ -50,14 +66,13 @@ class RestService {
       };
 
 
-
+      print(endpoint);
       Response<dynamic> response = await dio.request(
         '$endpoint',
         data: data,
         queryParameters: queryParameters,
         options: _cacheOptions,
       );
-
       var apiResponJson = response.data;
       var json = jsonDecode(response.toString());
       print(response.statusCode);

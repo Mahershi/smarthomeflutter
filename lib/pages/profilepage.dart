@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homeautomation/helpers/constants.dart';
+import 'package:homeautomation/repo/user_repo.dart' as ur;
 
 class ProfilePage extends StatefulWidget{
   @override
@@ -31,7 +32,7 @@ class PageState extends State<ProfilePage>{
                   SizedBox(height: 40,),
                   Container(
                     child: Text(
-                      "Mahershi Bhavsar",
+                      ur.currentUser.name,
                       style: font.merge(
                         TextStyle(
                           fontSize: MediaQuery.of(context).size.width * head2
@@ -42,19 +43,26 @@ class PageState extends State<ProfilePage>{
 
                 ],
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  borderRadius: borderRadius20,
+              InkWell(
+                onTap: () async{
+                  await ur.logoutDevice().then((value){
+                    Navigator.of(context).pushNamedAndRemoveUntil('/Login', (route) => false);
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    borderRadius: borderRadius20,
+                  ),
+                    margin: EdgeInsets.all(40),
+                    padding: all20,
+                    child: Text(
+                      "Logout",
+                      style: font.merge(TextStyle(
+                        color: secondColor
+                      )),
+                    )
                 ),
-                  margin: EdgeInsets.all(40),
-                  padding: all20,
-                  child: Text(
-                    "Logout",
-                    style: font.merge(TextStyle(
-                      color: secondColor
-                    )),
-                  )
               )
             ],
           )

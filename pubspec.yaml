@@ -22,7 +22,7 @@ dependencies:
   scrollable_positioned_list: ^0.2.0-nullsafety.0
   lottie: ^1.0.1
   mvc_pattern: ^7.3.3
-
+  shared_preferences: ^2.0.6
 
   google_signin:
     path: C:/Users/TwofacE/AndroidStudioProjects/mypackages/google_signin

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homeautomation/controllers/login_controller.dart';
 import 'package:homeautomation/helpers/constants.dart';
+import 'package:homeautomation/repo/globals.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 
@@ -14,8 +15,11 @@ class PageState extends StateMVC<Login>{
   LoginController _con = LoginController();
 
   PageState() : super(LoginController()){
+
     _con = controller as LoginController;
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +82,11 @@ class PageState extends StateMVC<Login>{
             Center(
               child: InkWell(
                 onTap: (){
-                  _con.login();
+                  _con.login().then((value){
+                    if(value){
+                      Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
+                    }
+                  });
                 },
                 child: Container(
                   padding: all12,
