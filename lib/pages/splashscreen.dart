@@ -1,17 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homeautomation/controllers/splash_controller.dart';
 import 'package:homeautomation/elements/customprogressindicator.dart';
 import 'package:homeautomation/helpers/constants.dart';
 import 'package:google_signin/google_signin.dart';
 import 'package:homeautomation/repo/globals.dart';
-import 'package:homeautomation/repo/user_repo.dart' as ur;
+
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 class SplashScreen extends StatefulWidget{
   @override
   PageState createState() => PageState();
 }
 
-class PageState extends State<SplashScreen>{
+class PageState extends StateMVC<SplashScreen>{
+  late SplashController _con = SplashController();
+
+  PageState() : super(SplashController()){
+    _con = controller as SplashController;
+  }
 
   @override
   void initState(){
@@ -50,13 +57,7 @@ class PageState extends State<SplashScreen>{
       }
     });
     if(Globals.testConnection){
-      if(await ur.checkSP()){
-        print("in sp, goto main");
-        Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
-      }else{
-        print("not in sp, go to login");
-        Navigator.of(context).pushNamedAndRemoveUntil('/Login', (route) => false);
-      }
+      _con.startupSeq();
     }
 
   }

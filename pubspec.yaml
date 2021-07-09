@@ -23,6 +23,8 @@ dependencies:
   lottie: ^1.0.1
   mvc_pattern: ^7.3.3
   shared_preferences: ^2.0.6
+  flutter_launcher_icons: ^0.9.0
+
 
   google_signin:
     path: C:/Users/TwofacE/AndroidStudioProjects/mypackages/google_signin
@@ -38,4 +40,9 @@ flutter:
   assets:
     - assets/img/
     - assets/lottie/
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/img/icon.png"
 

@@ -12,7 +12,7 @@ class Login extends StatefulWidget{
 }
 
 class PageState extends StateMVC<Login>{
-  LoginController _con = LoginController();
+  late LoginController _con;
 
   PageState() : super(LoginController()){
 
@@ -85,6 +85,8 @@ class PageState extends StateMVC<Login>{
                   _con.login().then((value){
                     if(value){
                       Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
+                    }else{
+                      Navigator.of(context).pushNamedAndRemoveUntil('/Started', (route) => false);
                     }
                   });
                 },

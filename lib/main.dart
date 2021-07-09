@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:homeautomation/pages/LoginControl.dart';
 import 'package:homeautomation/pages/splashscreen.dart';
+import 'package:homeautomation/pages/started.dart';
 
 import 'app_config.dart';
 import 'helpers/route_gen.dart';

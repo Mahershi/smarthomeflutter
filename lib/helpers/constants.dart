@@ -41,13 +41,15 @@ double head3 = 0.06;
 double head4 = 0.05;
 double head4_5 = 0.045;
 double head5 = 0.04;
+double head6_5 = 0.035;
+double head6 = 0.03;
 
 
 // COLORS
 
 Color primaryColor = Color(0xFF348275);
 Color secondColor = Colors.white;
-Color accentColor = Color(0xFF348275);
+Color accentColor = Colors.white;
 Color accentColor2 = Color(0xFF2D303E);
 Color onColor = Color(0xFF348275);
 Color offColor = Colors.grey;

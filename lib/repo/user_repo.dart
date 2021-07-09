@@ -1,12 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:homeautomation/models/master.dart';
 import 'package:homeautomation/models/user.dart';
 import 'package:homeautomation/network/API.dart';
 import 'package:homeautomation/network/rest_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fauth;
 import 'package:google_signin/google_signin.dart';
+import 'package:homeautomation/repo/master_repo.dart' as mr;
 
 late User currentUser;
 
@@ -47,7 +49,16 @@ Future<bool> checkUserExist(String? email) async{
   );
 
   if(res['success'] == "true"){
-    currentUser = User.fromJson(res['data']);
+    currentUser = User.fromJson(res['data']['user']);
+    if(res['data']['masteruser']['master'] != null) {
+      var res2 = await mr.getMasterById(res['data']['masteruser']['master'].toString());
+      mr.currentMaster = Master.fromJson(res2['data']);
+
+      print("Current MAster");
+      print(mr.currentMaster!.toMap().toString());
+    }else{
+      print("master not found");
+    }
     saveToSP();
     print("added to SP");
     return true;
@@ -55,7 +66,7 @@ Future<bool> checkUserExist(String? email) async{
   return false;
 }
 
-Future<void> registerUser(fauth.User gUser) async{
+Future<bool> registerUser(fauth.User gUser) async{
   var data = {
     'name': gUser.displayName,
     'email': gUser.email,
@@ -71,4 +82,19 @@ Future<void> registerUser(fauth.User gUser) async{
   currentUser = User.fromJson(res['data']['user']);
   print(currentUser.toMap().toString());
   saveToSP();
+  if(res['data']['masteruser']['master'] != null) {
+    var res2 = await mr.getMasterById(res['data']['masteruser']['master'].toString());
+    mr.currentMaster = Master.fromJson(res2['data']);
+
+    print("Current MAster");
+    print(mr.currentMaster!.toMap().toString());
+    return true;
+  }else{
+    print("master not found");
+  }
+
+  return false;
 }
+
+
+
