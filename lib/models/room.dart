@@ -1,6 +1,16 @@
+import 'package:homeautomation/repo/room_repo.dart' as rr;
+
 class Room{
   late String id;
   late String name;
+
+  late String imgpath;
+
+  Room(){
+    name = "";
+    id = "";
+    imgpath = rr.constIcons.first.imgpath;
+  }
 
   Room.fromJson(jsonMap){
     try{
@@ -16,5 +26,13 @@ class Room{
     m['id'] = id;
     m['name'] = name;
     return m;
+  }
+
+  static Room getById(for_id){
+    for(var room in rr.myRooms){
+      if(room.id == for_id)
+        return room;
+    }
+    return Room();
   }
 }

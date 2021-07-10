@@ -30,7 +30,10 @@ EdgeInsets all12 = EdgeInsets.all(12);
 EdgeInsets vert20 = EdgeInsets.symmetric(vertical: 20);
 EdgeInsets vert10 = EdgeInsets.symmetric(vertical: 10);
 
+
 EdgeInsets hori20 = EdgeInsets.symmetric(horizontal: 20);
+EdgeInsets hori10 = EdgeInsets.symmetric(horizontal: 10);
+
 
 TextStyle font = GoogleFonts.comfortaa().merge(TextStyle(color: accentColor));
 

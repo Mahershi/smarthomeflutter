@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +63,7 @@ class PageState extends StateMVC<HomePage>{
                   ))
               )
           ),
-          _con!.roomsloaded ? Container(
+          _con!.roomsloaded ? rr.myRooms.isNotEmpty ? Container(
             // decoration: testDec,
             margin: vert10,
             width: MediaQuery.of(context).size.width,
@@ -75,10 +77,25 @@ class PageState extends StateMVC<HomePage>{
                 onPageChanged: (x, reason){
                   if(reason == CarouselPageChangedReason.manual){
                     curr = x;
+                    try{
+                      _con!.timer!.cancel();
+                    }catch(e){
+
+                    }
+                    _con!.timer = Timer.periodic(
+                      Duration(seconds: 1),
+                      (timer){
+                        print("Now changing");
+                        print("Cur Index: " + curr.toString());
+                        _con!.roomChange(rr.myRooms[curr].id);
+                        _con!.timer!.cancel();
+                      }
+                    );
+                  }else{
+                    print("Cur Index: " + curr.toString());
+                    _con!.roomChange(rr.myRooms[curr].id);
                   }
-                  print("Cur Index: " + curr.toString());
                   // print(rr.myRooms[curr].name);
-                  _con!.roomChange(rr.myRooms[curr].id);
                   setState(() {});
                 },
                 height: 40,
@@ -121,6 +138,8 @@ class PageState extends StateMVC<HomePage>{
                 );
               }).toList(),
             ),
+          ) : Container(
+
           ) : Expanded(
               child: Center(
                 child: SizedBox(
@@ -130,7 +149,7 @@ class PageState extends StateMVC<HomePage>{
                 ),
               )
           ),
-          _con!.roomsloaded && _con!.devicedloaded ? Expanded(
+          _con!.roomsloaded ? _con!.devicesloaded ? Expanded(
             child: Container(
               // decoration: testDec,
               child: GridView.builder(
@@ -144,6 +163,14 @@ class PageState extends StateMVC<HomePage>{
                 },
               ),
             ),
+          ) : Expanded(
+              child: Center(
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    height: MediaQuery.of(context).size.width * 0.1,
+                    child: CustomProgress(color: primaryColor,)
+                ),
+              )
           ) : Container()
 
         ],

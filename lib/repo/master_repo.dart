@@ -62,6 +62,46 @@ Future<dynamic> masterLogin(String name, String pass, String uid) async{
     print("Master login fail");
     return res;
   }
+}
 
+Future<dynamic> addRoomToMaster({String? room_id, String? curIcon}) async{
+  String api = API.masters + '/' + currentMaster!.id + '/' + API.master_add_room;
+  var res = RestService.request(
+    endpoint: api,
+    method: 'POST',
+    data: {
+      'room_id': room_id,
+      'roomicon_id': curIcon
+    }
+  );
+  return res;
 
 }
+
+Future<dynamic> roomChange({String? newRoomId, String? oldRoomId, String? curIcon}) async{
+  String api = API.masters + '/' + currentMaster!.id + "/" + API.master_change_room;
+  var res = await RestService.request(
+    endpoint: api,
+    data: {
+      "room_id": newRoomId,
+      "old_room_id": oldRoomId,
+      "roomicon_id": curIcon
+    },
+    method: 'POST'
+  );
+
+  return res;
+}
+
+// Future<dynamic> removeRoomFromMaster({String? room_id}) async{
+//   String api = API.masters + '/' + currentMaster!.id + '/' + API.master_remove_room;
+//   var res = RestService.request(
+//     endpoint: api,
+//     data: {
+//       'room_id': room_id
+//     },
+//     method: 'POST'
+//   );
+//
+//   return res;
+// }

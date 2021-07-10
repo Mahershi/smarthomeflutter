@@ -26,6 +26,7 @@ class ActionButton extends StatelessWidget{
         child: Icon(
           iconData,
           color: iconColor,
+          size: MediaQuery.of(context).size.width * 0.04,
         ),
       ),
     );
