@@ -36,7 +36,7 @@ Future<bool> isMasterUserSet(String uid) async{
 }
 
 //control login
-Future<bool> masterLogin(String name, String pass, String uid) async{
+Future<dynamic> masterLogin(String name, String pass, String uid) async{
 
   var data ={
     'name': name,
@@ -53,14 +53,14 @@ Future<bool> masterLogin(String name, String pass, String uid) async{
     try{
       currentMaster = Master.fromJson(res['data']);
       print("Master login successs");
-      return true;
+      return res;
     }catch(e){
       print("Master login fail: " + e.toString());
-      return false;
+      return res;
     }
   }else{
     print("Master login fail");
-    return false;
+    return res;
   }
 
 

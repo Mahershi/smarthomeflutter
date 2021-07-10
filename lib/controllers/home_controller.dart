@@ -1,3 +1,5 @@
+import 'package:homeautomation/helpers/constants.dart';
+import 'package:homeautomation/helpers/general.dart';
 import 'package:homeautomation/models/device.dart';
 import 'package:homeautomation/models/room.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -28,7 +30,7 @@ class HomeController extends ControllerMVC{
           Room r = Room.fromJson(d);
           rr.myRooms.add(r);
         }
-        await Future.delayed(Duration(seconds: 2), (){});
+        // await Future.delayed(Duration(seconds: 2), (){});
         roomsloaded = true;
         currentRoomId = rr.myRooms.first.id;
         setState(() { });

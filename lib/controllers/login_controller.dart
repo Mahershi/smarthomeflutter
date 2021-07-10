@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:homeautomation/repo/user_repo.dart' as ur;
 import 'package:homeautomation/repo/master_repo.dart' as mr;
 
-late User googleUser;
+User? googleUser;
 
 class LoginController extends ControllerMVC{
   // factory LoginController() {
@@ -25,20 +25,25 @@ class LoginController extends ControllerMVC{
     bool success = false;
     await MyGoogleSignin.signOut();
     googleUser = await MyGoogleSignin.googleSignInProcess();
-    print(googleUser.email);
-    await ur.checkUserExist(googleUser.email).then((bool exists) async{
-      if(exists){
-        if(mr.currentMaster != null){
-          success = true;
-        }
+    print("here");
+    if(googleUser != null){
+      print(googleUser!.email);
+      await ur.checkUserExist(googleUser!.email).then((bool exists) async{
+        if(exists){
+          if(mr.currentMaster != null){
+            success = true;
+          }
 
-      }else{
-        print("create new");
-        await ur.registerUser(googleUser).then((value){
-          success = value;
-        });
-      }
-    });
+        }else{
+          print("create new");
+          await ur.registerUser(googleUser!).then((value){
+            success = value;
+          });
+        }
+        ur.userFetched = true;
+      });
+    }
+
     return success;
   }
 }

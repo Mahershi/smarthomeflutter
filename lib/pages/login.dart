@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homeautomation/controllers/login_controller.dart';
 import 'package:homeautomation/helpers/constants.dart';
+import 'package:homeautomation/helpers/general.dart';
 import 'package:homeautomation/repo/globals.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:homeautomation/repo/user_repo.dart' as ur;
 
 
 class Login extends StatefulWidget{
@@ -82,12 +84,17 @@ class PageState extends StateMVC<Login>{
             Center(
               child: InkWell(
                 onTap: (){
+                  Helper.showNoTextLoader(context, secondColor);
                   _con.login().then((value){
-                    if(value){
-                      Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
-                    }else{
-                      Navigator.of(context).pushNamedAndRemoveUntil('/Started', (route) => false);
+                    Helper.removeLoader(context);
+                    if(ur.userFetched){
+                      if(value){
+                        Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
+                      }else{
+                        Navigator.of(context).pushNamedAndRemoveUntil('/Started', (route) => false);
+                      }
                     }
+
                   });
                 },
                 child: Container(

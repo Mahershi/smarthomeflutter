@@ -30,6 +30,7 @@ class PageState extends StateMVC<HomePage>{
   void initState(){
     super.initState();
     _con!.init();
+
   }
 
   @override

@@ -11,6 +11,7 @@ import 'package:google_signin/google_signin.dart';
 import 'package:homeautomation/repo/master_repo.dart' as mr;
 
 late User currentUser;
+bool userFetched = false;
 
 Future<void> logoutDevice() async{
   await MyGoogleSignin.signOut();

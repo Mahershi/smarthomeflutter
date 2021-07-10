@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:homeautomation/helpers/constants.dart';
+import 'package:homeautomation/helpers/general.dart';
 import 'package:homeautomation/repo/user_repo.dart' as ur;
 
 class ProfilePage extends StatefulWidget{
@@ -45,7 +46,9 @@ class PageState extends State<ProfilePage>{
               ),
               InkWell(
                 onTap: () async{
+                  Helper.showNoTextLoader(context, primaryColor);
                   await ur.logoutDevice().then((value){
+                    Helper.removeLoader(context);
                     Navigator.of(context).pushNamedAndRemoveUntil('/Login', (route) => false);
                   });
                 },

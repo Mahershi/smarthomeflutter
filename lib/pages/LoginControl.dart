@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:homeautomation/custompaint/topcurve.dart';
+import 'package:homeautomation/helpers/FToastHelper.dart';
 import 'package:homeautomation/helpers/constants.dart';
+import 'package:homeautomation/helpers/general.dart';
 import 'package:homeautomation/repo/user_repo.dart' as ur;
 import 'package:homeautomation/repo/master_repo.dart' as mr;
 
@@ -158,9 +160,16 @@ class LoginControl extends StatelessWidget{
                                 InkWell(
                                   onTap: () async{
                                     print("connect");
+                                    Helper.showLoader(context, "Connecting...", black, primaryColor);
                                     await mr.masterLogin(name.text, password.text, ur.currentUser.id).then((value){
-                                      if(value){
+                                      Helper.removeLoader(context);
+                                      if(value['success'] == 'true'){
                                         Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
+                                      }else{
+                                        CustomToast(
+                                          context: context,
+                                          msg: value['message'],
+                                        ).showToast();
                                       }
 
                                     });
