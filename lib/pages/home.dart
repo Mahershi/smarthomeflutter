@@ -1,44 +1,35 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homeautomation/controllers/home_controller.dart';
+import 'package:homeautomation/elements/customprogressindicator.dart';
 import 'package:homeautomation/elements/device.dart';
 import 'package:homeautomation/elements/drawer.dart';
 import 'package:homeautomation/elements/toppad.dart';
 import 'package:homeautomation/helpers/constants.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:homeautomation/repo/room_repo.dart' as rr;
+import 'package:homeautomation/repo/device_repo.dart' as dr;
 
 class HomePage extends StatefulWidget{
   @override
   PageState createState() => PageState();
 }
 
-class PageState extends State<HomePage>{
+class PageState extends StateMVC<HomePage>{
+
+  HomeController? _con;
+  PageState() : super(HomeController()){
+    _con = controller as HomeController;
+  }
+
   CarouselController carouselController = CarouselController();
-
-  var rooms = [
-    "Quick",
-    "Living Room",
-    "Bedroom",
-    "Kitchen",
-    "Bathroom",
-    "Lawn"
-  ];
-
-  var devices = [
-    'Light',
-    'Fan',
-    'AC',
-    'Television',
-    'Heater',
-    'Light',
-    'Fan',
-    'AC',
-    'Television'
-  ];
 
   int curr = 0;
 
   void initState(){
     super.initState();
+    _con!.init();
   }
 
   @override
@@ -69,11 +60,11 @@ class PageState extends State<HomePage>{
                   ))
               )
           ),
-          Container(
+          _con!.roomsloaded ? Container(
             // decoration: testDec,
             margin: vert10,
             width: MediaQuery.of(context).size.width,
-            child: CarouselSlider(
+            child:CarouselSlider(
               carouselController: carouselController,
               options: CarouselOptions(
                 initialPage: curr,
@@ -84,16 +75,20 @@ class PageState extends State<HomePage>{
                   if(reason == CarouselPageChangedReason.manual){
                     curr = x;
                   }
+                  print("Cur Index: " + curr.toString());
+                  // print(rr.myRooms[curr].name);
+                  _con!.roomChange(rr.myRooms[curr].id);
                   setState(() {});
                 },
-                height: 100,
+                height: 40,
               ),
-              items: rooms.map((e){
+              items: rr.myRooms.map((e){
                 return Wrap(
                   children: [
                     InkWell(
                       onTap: (){
-                        curr = rooms.indexOf(e);
+                        _con!.currentRoomId = e.id;
+                        curr = rr.myRooms.indexOf(e);
                         carouselController.animateToPage(curr);
                       },
                       child: Container(
@@ -103,10 +98,10 @@ class PageState extends State<HomePage>{
                             child: Column(
                               children: [
                                 Text(
-                                  e.toUpperCase(),
+                                  e.name,
                                   textAlign: TextAlign.center,
                                   style: font.merge(TextStyle(
-                                    color: curr == rooms.indexOf(e) ? primaryColor : grey,
+                                    color: curr == rr.myRooms.indexOf(e) ? primaryColor : grey,
                                     fontSize: MediaQuery.of(context).size.width * head5,
                                   )),
 
@@ -114,7 +109,7 @@ class PageState extends State<HomePage>{
                                 SizedBox(height: 2,),
                                 Container(
                                   height: 2,
-                                  color: curr == rooms.indexOf(e) ? primaryColor : Colors.transparent,
+                                  color: curr == rr.myRooms.indexOf(e) ? primaryColor : Colors.transparent,
                                 )
                               ],
                             ),
@@ -125,8 +120,16 @@ class PageState extends State<HomePage>{
                 );
               }).toList(),
             ),
+          ) : Expanded(
+              child: Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  height: MediaQuery.of(context).size.width * 0.1,
+                  child: CustomProgress(color: primaryColor,)
+                ),
+              )
           ),
-          Expanded(
+          _con!.roomsloaded && _con!.devicedloaded ? Expanded(
             child: Container(
               // decoration: testDec,
               child: GridView.builder(
@@ -134,13 +137,13 @@ class PageState extends State<HomePage>{
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2
                 ),
-                itemCount: devices.length,
+                itemCount: _con!.curDevices.length,
                 itemBuilder: (context, index){
-                  return Device(name: devices[index], on: index%3==0,);
+                  return Device(device: _con!.curDevices[index]);
                 },
               ),
             ),
-          )
+          ) : Container()
 
         ],
       ),

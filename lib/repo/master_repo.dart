@@ -34,3 +34,34 @@ Future<bool> isMasterUserSet(String uid) async{
   }
   return false;
 }
+
+//control login
+Future<bool> masterLogin(String name, String pass, String uid) async{
+
+  var data ={
+    'name': name,
+    'password': pass,
+    'user_id': uid
+  };
+  var res = await RestService.request(
+    endpoint: API.master_login,
+    method: 'POST',
+    data: data
+  );
+
+  if(res['success'] == 'true'){
+    try{
+      currentMaster = Master.fromJson(res['data']);
+      print("Master login successs");
+      return true;
+    }catch(e){
+      print("Master login fail: " + e.toString());
+      return false;
+    }
+  }else{
+    print("Master login fail");
+    return false;
+  }
+
+
+}

@@ -67,6 +67,7 @@ class RestService {
 
 
       print(endpoint);
+      print(data.toString());
       Response<dynamic> response = await dio.request(
         '$endpoint',
         data: data,
@@ -85,28 +86,10 @@ class RestService {
         return response.data;
       }
     } on DioError catch (e) {
-      String erMsg = 'Connection Error';
-      String erMsg2 = '';
-      if(e.response != null){
-        int? i = e.response!.statusCode;
-        switch(i!){
-          case 401:
-            erMsg = "Invalid Credentials";
-            break;
-          case 500:
-            erMsg = "Server Error";
-            break;
-          default:
-            erMsg = "Unknown Error";
-        }
-        var l = e.response!.data['error'];
-        if(l is List<dynamic>){
-          erMsg2 = l[0]['message'][0].toString();
-        }
-      }
+      print(e.toString());
       return {
         "success": "false",
-        "error": erMsg2 == '' ? erMsg : erMsg2
+        "error": e.error.toString()
       };
     } catch(e){
       return {

@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:homeautomation/controllers/mainpage_controller.dart';
 import 'package:homeautomation/elements/drawer.dart';
 import 'package:homeautomation/elements/toppad.dart';
 import 'package:homeautomation/helpers/constants.dart';
 import 'package:homeautomation/pages/home.dart';
 import 'package:homeautomation/pages/myrooms.dart';
 import 'package:homeautomation/pages/userspage.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 class MainPage extends StatefulWidget{
   @override
@@ -13,6 +15,13 @@ class MainPage extends StatefulWidget{
 }
 
 class PageState extends State<MainPage>{
+
+  // MainPageController? _con;
+  //
+  // PageState() : super(MainPageController()){
+  //   _con = controller as MainPageController;
+  // }
+
   int curPage = home;
   Widget body = Container();
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -20,7 +29,7 @@ class PageState extends State<MainPage>{
   @override
   void initState(){
     super.initState();
-    setPage(myRooms);
+    setPage(home);
   }
   @override
   Widget build(BuildContext context) {

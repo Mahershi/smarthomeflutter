@@ -14,6 +14,7 @@ late User currentUser;
 
 Future<void> logoutDevice() async{
   await MyGoogleSignin.signOut();
+  mr.currentMaster = null;
   SharedPreferences _pref = await SharedPreferences.getInstance();
   _pref.remove('user');
 }
