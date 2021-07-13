@@ -8,8 +8,8 @@ class Device{
   late String status;
   late String type;
   late String freq;
-  late String master_id;
   late String room_id;
+  late bool active;
 
   Device.fromJson(jsonMap){
     try{
@@ -18,8 +18,8 @@ class Device{
       status = jsonMap['status'] != null ? jsonMap['status'].toString() : "0";
       type = jsonMap['type'] != null ? jsonMap['type'].toString() : "1";
       freq = jsonMap['frequency'] != null ? jsonMap['frequency'].toString() : "0";
-      master_id = jsonMap['master'] != null ? jsonMap['master'].toString() : "";
       room_id = jsonMap['room'] != null ? jsonMap['room'].toString() : "";
+      active = jsonMap['active'] ?? false;
     }catch(e){
       print("Exception(" + this.runtimeType.toString() + " ): " + e.toString());
 
@@ -31,9 +31,9 @@ class Device{
     Map<String, dynamic> m = {};
     m['id'] = id;
     m['name'] = name;
-    m['master'] = master_id;
+    // m['active'] = active;
     m['room'] = room_id;
-    m['type'] = type;
+    // m['type'] = type;
     m['frequency'] = freq;
     m['status'] = status;
 

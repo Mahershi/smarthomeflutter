@@ -3,10 +3,9 @@ import 'package:homeautomation/models/room.dart';
 class Master{
   late String id;
   late String name;
-  late String password;
-  late List<int> room_icons = [];
-  late List<int> rooms_id = [];
+  late String uname;
   late String mac;
+  late String serial;
 
   Master();
 
@@ -14,14 +13,9 @@ class Master{
     try{
       id = jsonMap['id'] != null ? jsonMap['id'].toString() : "";
       name = jsonMap['name'] ?? "";
-      password = jsonMap['password'] != null ? jsonMap['password'].toString() : "";
       mac = jsonMap['mac'] != null ? jsonMap['mac'].toString() : "";
-      for(var i in jsonMap['rooms']){
-        rooms_id.add(i);
-      }
-      for(var i in jsonMap['roomicons']){
-        room_icons.add(i);
-      }
+      uname = jsonMap['uname'] ?? "";
+      serial = jsonMap['serial'] ?? "";
     }catch(e){
       print("Exception(" + this.runtimeType.toString() + " ): " + e.toString());    }
   }
@@ -30,9 +24,18 @@ class Master{
     Map<String, dynamic> m = {};
     m['id'] = id;
     m['name'] = name;
+    m['uname'] = uname;
+
+    return m;
+  }
+
+  saveToSP(){
+    Map<String, dynamic> m = {};
+    m['id'] = id;
+    m['name'] = name;
+    m['uname'] = uname;
     m['mac'] = mac;
-    m['room_icons'] = room_icons;
-    m['rooms'] = rooms_id;
+    m['serial'] = serial;
 
     return m;
   }

@@ -7,6 +7,7 @@ import 'package:homeautomation/pages/home.dart';
 import 'package:homeautomation/pages/myrooms.dart';
 import 'package:homeautomation/pages/userspage.dart';
 import 'package:homeautomation/repo/room_repo.dart' as rr;
+import 'package:homeautomation/repo/user_repo.dart' as ur;
 
 class MainPage extends StatefulWidget{
   @override
@@ -29,6 +30,7 @@ class PageState extends State<MainPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: primaryColor,
       drawer: MyDrawer(curPage: curPage, setPage: setPage,),
       body: Column(
         children: [
@@ -46,7 +48,7 @@ class PageState extends State<MainPage>{
                   child: Image.asset(
                     'assets/img/menu2.png',
                     width: MediaQuery.of(context).size.width * 0.06,
-                    color: primaryColor,
+                    color: themeColor,
                   ),
                 ),
 
@@ -54,13 +56,27 @@ class PageState extends State<MainPage>{
                   onTap: (){
                     Navigator.of(context).pushNamed('/Profile');
                   },
-                  child: CircleAvatar(
-                    backgroundColor: primaryColor,
+                  child: ur.currentUser.imageurl != '' ? Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: themeColor),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: Image.network(
+                        ur.currentUser.imageurl,
+                        width: MediaQuery.of(context).size.width * 0.16,
+                      )
+                    ),
+                  ) :
+                  CircleAvatar(
+                    backgroundColor: themeColor,
                     radius: MediaQuery.of(context).size.width * 0.08,
                     child: Image.asset(
                       'assets/img/user.png',
                       width: MediaQuery.of(context).size.width * 0.09,
-                      color: secondColor,
+                      color: txtColor,
                     ),
                   ),
                 )

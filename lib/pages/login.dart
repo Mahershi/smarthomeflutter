@@ -26,7 +26,7 @@ class PageState extends StateMVC<Login>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: primaryColor,
       body: Container(
         color: primaryColor.withOpacity(0.2),
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20, left: 20, right: 20, bottom: 50),
@@ -51,7 +51,8 @@ class PageState extends StateMVC<Login>{
                   style: font.merge(TextStyle(
                       fontSize: MediaQuery.of(context).size.width * head1,
                       fontWeight: FontWeight.w900,
-                      letterSpacing: 1.1
+                      letterSpacing: 1.1,
+                    color: themeColor
                   )),
                 )
             ),
@@ -84,16 +85,7 @@ class PageState extends StateMVC<Login>{
             Center(
               child: InkWell(
                 onTap: (){
-                  Helper.showNoTextLoader(context, secondColor);
                   _con.login().then((value){
-                    Helper.removeLoader(context);
-                    if(ur.userFetched){
-                      if(value){
-                        Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
-                      }else{
-                        Navigator.of(context).pushNamedAndRemoveUntil('/Started', (route) => false);
-                      }
-                    }
 
                   });
                 },
@@ -101,8 +93,8 @@ class PageState extends StateMVC<Login>{
                   padding: all12,
                   decoration: BoxDecoration(
                     borderRadius: borderRadius12,
-                    border: Border.all(color: primaryColor),
-                    color: secondColor
+                    border: Border.all(color: myBlack2),
+                    color: txtColor
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

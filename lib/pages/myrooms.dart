@@ -48,7 +48,7 @@ class PageState extends StateMVC<MyRoomsPage>{
                         "My Rooms",
                         style: font.merge(TextStyle(
                             fontSize: MediaQuery.of(context).size.width * head2,
-                            color: accentColor2
+                            color: txtColor
                         ))
                     )
                 ),
@@ -64,7 +64,7 @@ class PageState extends StateMVC<MyRoomsPage>{
                       }
                     });
                   },
-                  bgColor: secondColor,
+                  bgColor: txtColor,
                   iconColor: primaryColor,
                   borderColor: primaryColor,
                 )
@@ -109,7 +109,7 @@ class PageState extends StateMVC<MyRoomsPage>{
                               // width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: secondColor,
+                                color: txtColor,
                                 border: Border.all(color: primaryColor)
                               ),
                               child: Icon(Icons.edit, color: primaryColor,),
@@ -124,7 +124,7 @@ class PageState extends StateMVC<MyRoomsPage>{
                 child: SizedBox(
                   width: 40,
                   height: 40,
-                  child: CustomProgress(color: primaryColor, width: 1,)
+                  child: CustomProgress(color: txtColor, width: 1,)
                 ),
               ),
             )

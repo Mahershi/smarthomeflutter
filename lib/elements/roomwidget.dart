@@ -22,7 +22,7 @@ class RoomWidget extends StatelessWidget{
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: borderRadius12,
-          color: primaryColor.withOpacity(1)
+          color: primaryColor2
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -30,14 +30,14 @@ class RoomWidget extends StatelessWidget{
             Image.asset(
               room!.imgpath,
               width: MediaQuery.of(context).size.width * 0.1,
-              color: secondColor.withOpacity(0.7),
+              color: themeColor,
             ),
             Text(
               room!.name,
               textAlign: TextAlign.center,
               style: font.merge(TextStyle(
                 fontSize: MediaQuery.of(context).size.width * head4,
-                color: secondColor,
+                color: txtColor,
                 height: 1.3,
                 letterSpacing: 1.1
               )),
@@ -45,7 +45,7 @@ class RoomWidget extends StatelessWidget{
             Text(
               count.toString() + " Device(s)",
               style: font.merge(TextStyle(
-                color: secondColor.withOpacity(0.5),
+                color: myGrey,
               )),
             )
           ],

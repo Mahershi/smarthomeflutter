@@ -29,13 +29,15 @@ EdgeInsets all12 = EdgeInsets.all(12);
 
 EdgeInsets vert20 = EdgeInsets.symmetric(vertical: 20);
 EdgeInsets vert10 = EdgeInsets.symmetric(vertical: 10);
+EdgeInsets vert8 = EdgeInsets.symmetric(vertical: 8);
+
 
 
 EdgeInsets hori20 = EdgeInsets.symmetric(horizontal: 20);
 EdgeInsets hori10 = EdgeInsets.symmetric(horizontal: 10);
 
 
-TextStyle font = GoogleFonts.comfortaa().merge(TextStyle(color: accentColor));
+TextStyle font = GoogleFonts.comfortaa().merge(TextStyle(color: txtColor));
 
 double head1 = 0.08;
 double head2 = 0.07;
@@ -50,12 +52,12 @@ double head6 = 0.03;
 
 // COLORS
 
-Color primaryColor = Color(0xFF348275);
-Color secondColor = Colors.white;
-Color accentColor = Colors.white;
-Color accentColor2 = Color(0xFF2D303E);
-Color onColor = Color(0xFF348275);
-Color offColor = Colors.grey;
+// Color primaryColor = Color(0xFF348275);
+// Color secondColor = Colors.white;
+// Color accentColor = Colors.white;
+// Color accentColor2 = Color(0xFF2D303E);
+// Color onColor = Color(0xFF348275);
+// Color offColor = Colors.grey;
 Color accentColor3 = Colors.grey;
 Color red = Colors.red;
 const Color black = Colors.black;
@@ -63,3 +65,16 @@ Color grey = Colors.grey;
 Color orange = Colors.orangeAccent;
 Color yellow = Colors.yellowAccent;
 Color barColor = Color(0xFFEF8767);
+
+Color myYellow = Color(0xFFFFB238);
+Color myBlack1 = Color(0xFF0E0F18);
+Color myBlack2 = Color(0xFF262630);
+Color myGrey = Color(0xFF717180);
+Color themeColor = myYellow;
+Color txtColor = Colors.white;
+Color primaryColor = myBlack1;
+Color primaryColor2 = myBlack2;
+
+Color txtColor2 = myGrey;
+Color onColor = Color(0xFF348275);
+Color offColor = myGrey;

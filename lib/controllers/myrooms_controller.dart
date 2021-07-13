@@ -20,7 +20,7 @@ class MyRoomsController extends ControllerMVC{
           Room r = Room.fromJson(d);
           rr.myRooms.add(r);
         }
-        await rr.setUpRoomIcons();
+        // await rr.setUpRoomIcons();
         // await Future.delayed(Duration(seconds: 2), (){});
         roomsloaded = true;
         // setState(() { });
@@ -37,7 +37,7 @@ class MyRoomsController extends ControllerMVC{
     };
 
     //master level device filter
-    await dr.getDevices(qp).then((res){
+    await dr.getDevicesForRoom(qp).then((res){
       if(res['success'] == 'true'){
         dr.myDevices.clear();
         for(var da in res['data']){

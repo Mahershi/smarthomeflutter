@@ -8,8 +8,9 @@ class CustomToast{
   FToast? fToast;
   Color msgColor;
   Duration duration;
+  Color boxColor;
 
-  CustomToast({required this.context, this.msg = '', this.msgColor = black, this.duration=const Duration(milliseconds: 1500)}){
+  CustomToast({required this.context, this.msg = '', this.msgColor = Colors.white, this.duration=const Duration(milliseconds: 1500), this.boxColor = Colors.black}){
     fToast = FToast();
     fToast!.init(context);
   }
@@ -29,7 +30,7 @@ class CustomToast{
         margin: EdgeInsets.all(20),
         decoration: BoxDecoration(
             borderRadius: borderRadius20,
-            color: accentColor.withOpacity(0.92)
+            color: boxColor
         ),
         child: Text(
           msg,

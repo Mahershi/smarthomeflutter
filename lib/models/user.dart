@@ -4,9 +4,12 @@ class User{
   late String id;
   late String name;
   late String email;
-  late String password;
+  late bool restricted;
+  late bool admin;
+  late bool loggedin;
   late String imageurl;
   late String fcmtoken;
+  late String master_id;
 
   User();
 
@@ -15,9 +18,12 @@ class User{
       id = jsonMap['id'] != null ? jsonMap['id'].toString() : '';
       name = jsonMap['name'] ?? "";
       email = jsonMap['email'] ?? "";
-      imageurl = jsonMap['imageurl'] ?? "";
-      password = "";
+      imageurl = jsonMap['image_url'] ?? "";
       fcmtoken = jsonMap['fcmtoken'] ?? "";
+      restricted = jsonMap['restricted'] ?? false;
+      admin = jsonMap['admin'] ?? false;
+      loggedin = jsonMap['loggedin'] ?? false;
+      master_id = jsonMap['master'] != null ? jsonMap['master'].toString() : "";
     }catch(e){
       print("Exception(" + this.runtimeType.toString() + " ): " + e.toString());
     }
@@ -30,6 +36,10 @@ class User{
     m['email'] = email;
     m['fcm_token'] = fcmtoken;
     m['image_url'] = imageurl;
+    m['admin'] = admin;
+    m['restricted'] = restricted;
+    m['loggedin'] = loggedin;
+    m['master'] = master_id;
 
     return m;
   }
@@ -39,10 +49,13 @@ class User{
     m['id'] = id;
     m['name'] = name;
     m['email'] = email;
-    m['password'] = password;
     m['fcm_token'] = fcmtoken;
     m['image_url'] = imageurl;
 
+    m['admin'] = admin;
+    m['restricted'] = restricted;
+    m['loggedin'] = loggedin;
+    m['master'] = master_id;
     return m;
   }
 }

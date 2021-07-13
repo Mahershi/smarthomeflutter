@@ -6,6 +6,7 @@ class StartedPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
         body: Stack(
           children: [
             Container(
@@ -19,7 +20,7 @@ class StartedPage extends StatelessWidget{
                       "Looks like you have no Home Control added",
                       style: font.merge(TextStyle(
                           fontSize: MediaQuery.of(context).size.width * head6_5,
-                          color: grey.withOpacity(0.8)
+                          color: myGrey
                       )),
                     ),
                   ),
@@ -29,7 +30,7 @@ class StartedPage extends StatelessWidget{
                       "OR password may have been changed!",
                       style: font.merge(TextStyle(
                           fontSize: MediaQuery.of(context).size.width * head6_5,
-                          color: grey.withOpacity(0.8)
+                          color: myGrey
                       )),
                     ),
                   ),
@@ -39,7 +40,7 @@ class StartedPage extends StatelessWidget{
                       "Lets get you started!",
                       style: font.merge(TextStyle(
                           fontSize: MediaQuery.of(context).size.width * head3,
-                          color: primaryColor
+                          color: themeColor
                       )),
                     ),
                   ),
@@ -48,7 +49,7 @@ class StartedPage extends StatelessWidget{
                     child: Image.asset(
                       'assets/img/homelock.png',
                       width: MediaQuery.of(context).size.width * 0.3,
-                      color: primaryColor,
+                      color: myGrey,
                     ),
                   ),
                   Spacer(),
@@ -57,7 +58,7 @@ class StartedPage extends StatelessWidget{
                       "Add a Home Control to access your devices",
                       style: font.merge(TextStyle(
                           fontSize: MediaQuery.of(context).size.width * head5,
-                          color: accentColor2
+                          color: myGrey
                       )),
                     ),
                   ),
@@ -71,13 +72,13 @@ class StartedPage extends StatelessWidget{
                       child: Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: primaryColor
+                          color: themeColor
                         ),
                         width: MediaQuery.of(context).size.width * 0.15,
                         height: MediaQuery.of(context).size.width * 0.15,
                         child: Icon(
                           Icons.chevron_right,
-                          color: secondColor,
+                          color: txtColor,
                         ),
                       ),
                     ),
@@ -91,7 +92,7 @@ class StartedPage extends StatelessWidget{
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     // border: testBorder,
-                  color: primaryColor
+                  color: themeColor
                 ),
                 width: MediaQuery.of(context).size.width * 0.8,
               ),

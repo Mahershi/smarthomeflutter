@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:homeautomation/helpers/FToastHelper.dart';
 import 'package:homeautomation/helpers/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:homeautomation/models/device.dart' as dm;
@@ -18,17 +19,22 @@ class PageState extends State<Device>{
   void initState(){
     super.initState();
     on = widget.device!.status == '1';
-    local = on ? onColor : offColor.withOpacity(0.3);
+    local = on ? onColor : offColor;
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        setState(() {
-          on = ! on;
-          local = on ? onColor : offColor.withOpacity(0.3);
-        });
+        if(widget.device!.active){
+          setState(() {
+            on = ! on;
+            local = on ? onColor : offColor;
+          });
+        }else{
+          CustomToast(context: context, msg: "Device seems to be inactive", msgColor: primaryColor, boxColor: txtColor).showToast();
+        }
+
       },
       child: Container(
         margin: all10,
@@ -48,6 +54,7 @@ class PageState extends State<Device>{
                   widget.device!.name,
                   style: font.merge(TextStyle(
                     color: on ? onColor : offColor,
+                    // color: themeColor,
                     fontSize: MediaQuery.of(context).size.width * head4_5
                   )),
                 ),
@@ -58,13 +65,23 @@ class PageState extends State<Device>{
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Visibility(
+                  visible: !widget.device!.active,
+                  child: Container(
+                    child: Image.asset(
+                      'assets/img/danger.png',
+                      width: MediaQuery.of(context).size.width * 0.05,
+                    )
+                  ),
+                ),
                 InkWell(
                   onTap: (){
-                    setState(() {
-                      on = ! on;
-                    });
+                    if(widget.device!.active)
+                      setState(() {
+                        on = ! on;
+                      });
                   },
                   child: Icon(
                     Icons.power_settings_new_rounded,

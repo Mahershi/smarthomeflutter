@@ -20,6 +20,38 @@ Future<void> logoutDevice() async{
   _pref.remove('user');
 }
 
+Future<bool> syncUser() async{
+  String api = API.registerUser + currentUser.id;
+  var res = await RestService.request(
+    endpoint: api,
+    method: 'GET'
+  );
+
+  if(res['success'] == 'true'){
+    currentUser = User.fromJson(res['data']);
+    return true;
+  }
+  return false;
+
+}
+
+//login or register if doesnt already exists
+Future<bool> userLogin(data) async{
+  var res = await RestService.request(
+    endpoint: API.registerUser,
+    method: 'POST',
+    data: data
+  );
+
+  if(res['success'] == 'true'){
+    currentUser = User.fromJson(res['data']);
+    saveToSP();
+    return true;
+  }else{
+    return false;
+  }
+}
+
 Future<bool> checkSP() async{
   var sp = await SharedPreferences.getInstance();
   if(sp.containsKey('user')){
@@ -40,63 +72,63 @@ Future<void> saveToSP() async{
   _pref.setString('user', json.encode(currentUser.saveToSP()));
 }
 
-Future<bool> checkUserExist(String? email) async{
-  var data = {
-    'email': email
-  };
-  var res = await RestService.request(
-    endpoint: API.user_exists,
-    data: data,
-    method: 'POST'
-  );
+// Future<bool> checkUserExist(String? email) async{
+//   var data = {
+//     'email': email
+//   };
+//   var res = await RestService.request(
+//     endpoint: API.user_exists,
+//     data: data,
+//     method: 'POST'
+//   );
+//
+//   if(res['success'] == "true"){
+//     currentUser = User.fromJson(res['data']['user']);
+//     if(res['data']['masteruser']['master'] != null) {
+//       var res2 = await mr.getMasterById(res['data']['masteruser']['master'].toString());
+//       mr.currentMaster = Master.fromJson(res2['data']);
+//
+//       print("Current MAster");
+//       print(mr.currentMaster!.toMap().toString());
+//     }else{
+//       print("master not found");
+//     }
+//     saveToSP();
+//     print("added to SP");
+//     return true;
+//   }
+//   return false;
+// }
 
-  if(res['success'] == "true"){
-    currentUser = User.fromJson(res['data']['user']);
-    if(res['data']['masteruser']['master'] != null) {
-      var res2 = await mr.getMasterById(res['data']['masteruser']['master'].toString());
-      mr.currentMaster = Master.fromJson(res2['data']);
-
-      print("Current MAster");
-      print(mr.currentMaster!.toMap().toString());
-    }else{
-      print("master not found");
-    }
-    saveToSP();
-    print("added to SP");
-    return true;
-  }
-  return false;
-}
-
-Future<bool> registerUser(fauth.User gUser) async{
-  var data = {
-    'name': gUser.displayName,
-    'email': gUser.email,
-    'password': gUser.email
-  };
-
-  var res = await RestService.request(
-    endpoint: API.registerUser,
-    method: 'POST',
-    data: data
-  );
-
-  currentUser = User.fromJson(res['data']['user']);
-  print(currentUser.toMap().toString());
-  saveToSP();
-  if(res['data']['masteruser']['master'] != null) {
-    var res2 = await mr.getMasterById(res['data']['masteruser']['master'].toString());
-    mr.currentMaster = Master.fromJson(res2['data']);
-
-    print("Current MAster");
-    print(mr.currentMaster!.toMap().toString());
-    return true;
-  }else{
-    print("master not found");
-  }
-
-  return false;
-}
+// Future<bool> registerUser(fauth.User gUser) async{
+//   var data = {
+//     'name': gUser.displayName,
+//     'email': gUser.email,
+//     'password': gUser.email
+//   };
+//
+//   var res = await RestService.request(
+//     endpoint: API.registerUser,
+//     method: 'POST',
+//     data: data
+//   );
+//
+//   currentUser = User.fromJson(res['data']['user']);
+//   print(currentUser.toMap().toString());
+//   saveToSP();
+//   if(res['data']['masteruser']['master'] != null) {
+//     var res2 = await mr.getMasterById(res['data']['masteruser']['master'].toString());
+//     mr.currentMaster = Master.fromJson(res2['data']);
+//
+//     print("Current MAster");
+//     print(mr.currentMaster!.toMap().toString());
+//     return true;
+//   }else{
+//     print("master not found");
+//   }
+//
+//   return false;
+// }
 
 
 

@@ -13,7 +13,7 @@ class MyAddButton extends StatelessWidget{
         padding: all10,
         decoration: BoxDecoration(
           borderRadius: borderRadius12,
-          color: secondColor,
+          color: txtColor,
         ),
         child: Icon(
           Icons.add,

@@ -22,6 +22,7 @@ class Globals{
   }
 
   static Future<bool> checkDirectConnection() async{
+    directConnection = false;
     print("checking direct con");
     await RestService.switchToDirect();
     var res = await RestService.request(

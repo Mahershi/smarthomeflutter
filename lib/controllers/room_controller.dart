@@ -15,7 +15,7 @@ class RoomController extends ControllerMVC{
     };
 
     //master level device filter
-    await dr.getDevices(qp).then((res) async{
+    await dr.getDevicesForRoom(qp).then((res) async{
       if(res['success'] == 'true'){
         roomDevices.clear();
         for(var da in res['data']){

@@ -38,7 +38,7 @@ class PageState extends StateMVC<SplashScreen>{
               child: CustomProgress(),
             ),
             SizedBox(height: 20,),
-            Image.asset('assets/img/splash.png', width: MediaQuery.of(context).size.width / 3, color: primaryColor,),
+            Image.asset('assets/img/splash.png', width: MediaQuery.of(context).size.width / 3, color: themeColor,),
             SizedBox(height: 20,),
             CustomProgress(color: primaryColor,),
           ],
@@ -50,11 +50,11 @@ class PageState extends StateMVC<SplashScreen>{
   void load() async{
     await MyGoogleSignin.initializeFirebase();
     await Globals.checkDirectConnection().then((bool directSuccess) async{
-      if(!directSuccess){
-        await Globals.checkIndirectConnection().then((bool indirectSuccess){
-
-        });
-      }
+      // if(!directSuccess){
+      //   await Globals.checkIndirectConnection().then((bool indirectSuccess){
+      //
+      //   });
+      // }
     });
     if(Globals.testConnection){
       _con.startupSeq();

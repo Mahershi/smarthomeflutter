@@ -6,12 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:homeautomation/controllers/home_controller.dart';
 import 'package:homeautomation/elements/customprogressindicator.dart';
 import 'package:homeautomation/elements/device.dart';
-import 'package:homeautomation/elements/drawer.dart';
-import 'package:homeautomation/elements/toppad.dart';
 import 'package:homeautomation/helpers/constants.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:homeautomation/repo/room_repo.dart' as rr;
-import 'package:homeautomation/repo/device_repo.dart' as dr;
+import 'package:homeautomation/repo/user_repo.dart' as ur;
 
 class HomePage extends StatefulWidget{
   @override
@@ -46,8 +44,8 @@ class PageState extends StateMVC<HomePage>{
               child: Text(
                   "Good Morning",
                   style: font.merge(TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * head5,
-                      color: accentColor3
+                      fontSize: MediaQuery.of(context).size.width * head6_5,
+                      color: txtColor
                   ))
               )
           ),
@@ -55,17 +53,18 @@ class PageState extends StateMVC<HomePage>{
           Container(
               padding: hori20,
               child: Text(
-                  "Mahershi",
+                  ur.currentUser.name.split(' ').first,
                   style: font.merge(TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * head2,
+                    fontSize: MediaQuery.of(context).size.width * head3,
                     fontWeight: FontWeight.bold,
-                    color: primaryColor
+                    color: themeColor
                   ))
               )
           ),
           _con!.roomsloaded ? rr.myRooms.isNotEmpty ? Container(
             // decoration: testDec,
-            margin: vert10,
+            // margin: EdgeInsets.only(top: 20, bottom: 10),
+            // alignment: Alignment.center,
             width: MediaQuery.of(context).size.width,
             child:CarouselSlider(
               carouselController: carouselController,
@@ -101,40 +100,37 @@ class PageState extends StateMVC<HomePage>{
                 height: 40,
               ),
               items: rr.myRooms.map((e){
-                return Wrap(
-                  children: [
-                    InkWell(
-                      onTap: (){
-                        _con!.currentRoomId = e.id;
-                        curr = rr.myRooms.indexOf(e);
-                        carouselController.animateToPage(curr);
-                      },
-                      child: Container(
-                          alignment: Alignment.center,
-                          // decoration: testDec,
-                          child: IntrinsicWidth(
-                            child: Column(
-                              children: [
-                                Text(
-                                  e.name,
-                                  textAlign: TextAlign.center,
-                                  style: font.merge(TextStyle(
-                                    color: curr == rr.myRooms.indexOf(e) ? primaryColor : grey,
-                                    fontSize: MediaQuery.of(context).size.width * head5,
-                                  )),
+                return InkWell(
+                  onTap: (){
+                    _con!.currentRoomId = e.id;
+                    curr = rr.myRooms.indexOf(e);
+                    carouselController.animateToPage(curr);
+                  },
+                  child: Container(
+                      alignment: Alignment.center,
+                      // decoration: testDec,
+                      child: IntrinsicWidth(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              e.name,
+                              textAlign: TextAlign.center,
+                              style: font.merge(TextStyle(
+                                color: curr == rr.myRooms.indexOf(e) ? txtColor : myGrey,
+                                fontSize: MediaQuery.of(context).size.width * head6_5,
+                              )),
 
-                                ),
-                                SizedBox(height: 2,),
-                                Container(
-                                  height: 2,
-                                  color: curr == rr.myRooms.indexOf(e) ? primaryColor : Colors.transparent,
-                                )
-                              ],
                             ),
-                          )
-                      ),
-                    ),
-                  ],
+                            // SizedBox(height: 2,),
+                            // Container(
+                            //   height: 2,
+                            //   color: curr == rr.myRooms.indexOf(e) ? txtColor : Colors.transparent,
+                            // )
+                          ],
+                        ),
+                      )
+                  ),
                 );
               }).toList(),
             ),
@@ -145,7 +141,7 @@ class PageState extends StateMVC<HomePage>{
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.1,
                   height: MediaQuery.of(context).size.width * 0.1,
-                  child: CustomProgress(color: primaryColor,)
+                  child: CustomProgress(color: themeColor,)
                 ),
               )
           ),
@@ -168,7 +164,7 @@ class PageState extends StateMVC<HomePage>{
                 child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.1,
                     height: MediaQuery.of(context).size.width * 0.1,
-                    child: CustomProgress(color: primaryColor,)
+                    child: CustomProgress(color: themeColor,)
                 ),
               )
           ) : Container()

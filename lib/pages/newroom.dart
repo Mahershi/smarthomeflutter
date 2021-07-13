@@ -56,7 +56,7 @@ class PageState extends State<NewRoom>{
                         child: Text(
                           "Room",
                           style: font.merge(TextStyle(
-                            color: secondColor,
+                            color: txtColor,
                             fontSize: MediaQuery.of(context).size.width * head3
                           )),
                         )
@@ -68,25 +68,25 @@ class PageState extends State<NewRoom>{
                           if(widget.room!.id == ''){
                             Helper.showLoader(context, "Creating Room...", black, primaryColor);
                             print("saving new");
-                            await rr.createRoom(name: name.text, curIcon: currentIcon,).then((value){
-                              Helper.removeLoader(context);
-                              print("value: " + value.toString());
-                              if(value){
-                                Navigator.of(context).pop(true);
-                              }
-                            });
+                            // await rr.createRoom(name: name.text, curIcon: currentIcon,).then((value){
+                            //   Helper.removeLoader(context);
+                            //   print("value: " + value.toString());
+                            //   if(value){
+                            //     Navigator.of(context).pop(true);
+                            //   }
+                            // });
                           }else{
                             widget.room!.name = name.text;
                             Helper.showLoader(context, "Saving Room...", black, primaryColor);
-                            await rr.editRoom(room: widget.room, curIcon: currentIcon).then((value){
-                              Helper.removeLoader(context);
-                              Navigator.of(context).pop(true);
-                            });
+                            // await rr.editRoom(room: widget.room, curIcon: currentIcon).then((value){
+                            //   Helper.removeLoader(context);
+                            //   Navigator.of(context).pop(true);
+                            // });
                           }
 
 
                         },
-                        bgColor: secondColor,
+                        bgColor: txtColor,
                         iconColor: primaryColor,
                         borderColor: primaryColor,
                       )
@@ -109,7 +109,7 @@ class PageState extends State<NewRoom>{
                         textAlign: TextAlign.center,
                         style: font.merge(
                             TextStyle(
-                                color: accentColor,
+                                color: txtColor,
                                 letterSpacing: 1.4,
                                 fontWeight: FontWeight.w800
                             )
@@ -117,19 +117,19 @@ class PageState extends State<NewRoom>{
                         decoration: InputDecoration(
                           hintText: "Room Name",
                           hintStyle: font.merge(
-                              TextStyle(color: accentColor.withOpacity(0.3), letterSpacing: 1.2,)),
+                              TextStyle(color: txtColor.withOpacity(0.3), letterSpacing: 1.2,)),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: borderRadius12,
-                              borderSide: BorderSide(color: accentColor.withOpacity(0.3))),
+                              borderSide: BorderSide(color: txtColor.withOpacity(0.3))),
                           focusedBorder: OutlineInputBorder(
                               borderRadius: borderRadius12,
-                              borderSide: BorderSide(color: accentColor)),
+                              borderSide: BorderSide(color: txtColor)),
                           errorBorder: OutlineInputBorder(
                               borderRadius: borderRadius12,
                               borderSide: BorderSide(color: red)),
                           focusedErrorBorder: OutlineInputBorder(
                               borderRadius: borderRadius12,
-                              borderSide: BorderSide(color: accentColor)),
+                              borderSide: BorderSide(color: txtColor)),
                         ),
                       ),
                     ),
@@ -142,7 +142,7 @@ class PageState extends State<NewRoom>{
                 padding: all20,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    color: secondColor
+                    color: txtColor
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,7 +172,7 @@ class PageState extends State<NewRoom>{
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                color: currentIcon == rr.constIcons[index].id ? primaryColor : secondColor,
+                                color: currentIcon == rr.constIcons[index].id ? primaryColor : txtColor,
                                 borderRadius: borderRadius12
                               ),
                               margin: all10,
@@ -182,7 +182,7 @@ class PageState extends State<NewRoom>{
                                 child: Image.asset(
                                   rr.constIcons[index].imgpath,
                                   width: MediaQuery.of(context).size.width * 0.2,
-                                  color: currentIcon == rr.constIcons[index].id ? secondColor: black,
+                                  color: currentIcon == rr.constIcons[index].id ? txtColor: black,
                                 ),
                               )
                             ),

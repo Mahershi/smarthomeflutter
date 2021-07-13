@@ -22,7 +22,7 @@ class PageState extends State<MyDrawer>{
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + MediaQuery.of(context).size.width * 0.16 + 40),
             height: MediaQuery.of(context).size.height,
             width: 150,
-            color: primaryColor,
+            color: txtColor,
             child: Column(
               children: [
                 Column(
@@ -37,12 +37,12 @@ class PageState extends State<MyDrawer>{
                         padding: all10,
                         decoration: BoxDecoration(
                           borderRadius: borderRadius20,
-                          color: widget.curPage == home ? secondColor : primaryColor
+                            color: widget.curPage == home ? primaryColor : txtColor
                         ),
                         child: Image.asset(
                           'assets/img/home.png',
                           width: MediaQuery.of(context).size.width * 0.1,
-                          color: widget.curPage == home ? primaryColor : secondColor,
+                          color: widget.curPage == home ? txtColor : primaryColor,
                         )
                       ),
                     ),
@@ -51,7 +51,7 @@ class PageState extends State<MyDrawer>{
                       "Home",
                       style: font.merge(TextStyle(
                         fontWeight: FontWeight.w600,
-                        color: secondColor
+                          color: primaryColor
                       ))
                     )
                   ],
@@ -68,12 +68,12 @@ class PageState extends State<MyDrawer>{
                         padding: all10,
                         decoration: BoxDecoration(
                             borderRadius: borderRadius20,
-                            color: widget.curPage == myRooms ? secondColor : primaryColor
+                            color: widget.curPage == myRooms ? primaryColor : txtColor
                         ),
                         child: Image.asset(
                           'assets/img/myrooms.png',
                           width: MediaQuery.of(context).size.width * 0.1,
-                          color: widget.curPage == myRooms ? primaryColor : secondColor,
+                          color: widget.curPage == myRooms ? txtColor : primaryColor,
                         )
                       ),
                     ),
@@ -82,7 +82,7 @@ class PageState extends State<MyDrawer>{
                         "My Rooms",
                         style: font.merge(TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: secondColor
+                            color: primaryColor
                         ))
                     )
                   ],
@@ -99,12 +99,12 @@ class PageState extends State<MyDrawer>{
                         padding: all10,
                         decoration: BoxDecoration(
                             borderRadius: borderRadius20,
-                            color: widget.curPage == users ? secondColor : primaryColor
+                            color: widget.curPage == users ? primaryColor : txtColor
                         ),
                         child: Image.asset(
                           'assets/img/users.png',
                           width: MediaQuery.of(context).size.width * 0.1,
-                          color: widget.curPage == users ? primaryColor : secondColor
+                          color: widget.curPage == users ? txtColor : primaryColor,
                         )
                       ),
                     ),
@@ -113,7 +113,7 @@ class PageState extends State<MyDrawer>{
                         "Users",
                         style: font.merge(TextStyle(
                             fontWeight: FontWeight.w600,
-                            color: secondColor
+                            color: primaryColor
                         ))
                     )
                   ],
@@ -135,7 +135,7 @@ class PageState extends State<MyDrawer>{
                   padding: all10,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: secondColor
+                    color: txtColor
                   ),
                   width: MediaQuery.of(context).size.width * 0.16,
                   height: MediaQuery.of(context).size.width * 0.16,

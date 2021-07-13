@@ -17,7 +17,7 @@ class MyBackButton extends StatelessWidget{
         ),
         child: Icon(
             Icons.chevron_left,
-          color: secondColor,
+          color: txtColor,
         ),
       ),
     );

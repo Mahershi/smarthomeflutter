@@ -5,10 +5,18 @@ import 'master_repo.dart' as mr;
 
 List<Device> myDevices = [];
 
-Future<dynamic> getDevices(qp) async{
+Future<dynamic> getDevicesForRoom(qp) async{
   var res = RestService.request(
     endpoint: API.devices,
     queryParameters: qp
+  );
+
+  return res;
+}
+
+Future<dynamic> getDevices() async{
+  var res = RestService.request(
+      endpoint: API.devices,
   );
 
   return res;

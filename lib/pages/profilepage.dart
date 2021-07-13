@@ -13,6 +13,7 @@ class PageState extends State<ProfilePage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: primaryColor,
       body: Center(
         child: Container(
           padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20, left: 20, right: 20),
@@ -21,13 +22,28 @@ class PageState extends State<ProfilePage>{
             children: [
               Column(
                 children: [
+                  // ur.currentUser.imageurl != '' ? Container(
+                  //   padding: EdgeInsets.all(2),
+                  //   decoration: BoxDecoration(
+                  //     border: Border.all(color: themeColor),
+                  //     borderRadius: BorderRadius.circular(100),
+                  //   ),
+                  //   child: ClipRRect(
+                  //       borderRadius: BorderRadius.circular(100),
+                  //       child: Image.network(
+                  //         ur.currentUser.imageurl,
+                  //         width: MediaQuery.of(context).size.width * 0.5,
+                  //         fit: BoxFit.none,
+                  //       )
+                  //   ),
+                  // ) :
                   CircleAvatar(
-                    backgroundColor: primaryColor,
+                    backgroundColor: themeColor,
                     radius: MediaQuery.of(context).size.width * 0.25,
                     child: Image.asset(
                       'assets/img/user.png',
                       width: MediaQuery.of(context).size.width * 0.3,
-                      color: secondColor,
+                      color: txtColor,
                     ),
                   ),
                   SizedBox(height: 40,),
@@ -54,7 +70,7 @@ class PageState extends State<ProfilePage>{
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: primaryColor,
+                    color: red,
                     borderRadius: borderRadius20,
                   ),
                     margin: EdgeInsets.all(40),
@@ -62,7 +78,7 @@ class PageState extends State<ProfilePage>{
                     child: Text(
                       "Logout",
                       style: font.merge(TextStyle(
-                        color: secondColor
+                        color: txtColor
                       )),
                     )
                 ),

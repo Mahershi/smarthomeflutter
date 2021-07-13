@@ -12,7 +12,7 @@ import 'package:homeautomation/repo/master_repo.dart' as mr;
 // }
 
 class LoginControl extends StatelessWidget{
-  TextEditingController name = TextEditingController();
+  TextEditingController uname = TextEditingController();
   TextEditingController password = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -23,11 +23,12 @@ class LoginControl extends StatelessWidget{
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        backgroundColor: primaryColor,
           body: Stack(
             children: [
               Container(
                   child: CustomPaint(
-                    painter: TopCurve(myColor: primaryColor),
+                    painter: TopCurve(myColor: themeColor),
                     child: Container(
                       alignment: Alignment.centerLeft,
                       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 20, right: 20, left: 20, bottom: 20),
@@ -41,7 +42,7 @@ class LoginControl extends StatelessWidget{
                               "Control Panel Login",
                               style: font.merge(TextStyle(
                                   fontSize: MediaQuery.of(context).size.width * head3,
-                                  color: secondColor
+                                  color: txtColor
                               )),
                             ),
                           ),
@@ -68,7 +69,7 @@ class LoginControl extends StatelessWidget{
                         //     "Control Panel Login",
                         //     style: font.merge(TextStyle(
                         //         fontSize: MediaQuery.of(context).size.width * head3,
-                        //         color: secondColor
+                        //         color: txtColor
                         //     )),
                         //   ),
                         // ),
@@ -76,7 +77,7 @@ class LoginControl extends StatelessWidget{
                         Container(
                           padding: all20,
                           decoration: BoxDecoration(
-                              color: primaryColor,
+                              color: primaryColor2,
                               borderRadius: borderRadius20
                           ),
                           child: Form(
@@ -86,37 +87,37 @@ class LoginControl extends StatelessWidget{
                                 Container(
                                   padding: EdgeInsets.symmetric(vertical: 10),
                                   child: TextFormField(
-                                    controller: name,
+                                    controller: uname,
                                     validator: (value){
                                       if (value == null || value.isEmpty){
-                                        return "Device name required";
+                                        return "Device username required";
                                       }
                                       return null;
                                     },
                                     textAlign: TextAlign.center,
                                     style: font.merge(
                                         TextStyle(
-                                            color: accentColor,
+                                            color: txtColor,
                                             letterSpacing: 1.4,
                                             fontWeight: FontWeight.w800
                                         )
                                     ),
                                     decoration: InputDecoration(
-                                      hintText: "Device Name",
+                                      hintText: "Device User Name",
                                       hintStyle: font.merge(
-                                          TextStyle(color: accentColor.withOpacity(0.3), letterSpacing: 1.2,)),
+                                          TextStyle(color: myGrey, letterSpacing: 1.2,)),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius: borderRadius12,
-                                          borderSide: BorderSide(color: accentColor.withOpacity(0.3))),
+                                          borderSide: BorderSide(color: myGrey)),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius: borderRadius12,
-                                          borderSide: BorderSide(color: accentColor)),
+                                          borderSide: BorderSide(color: txtColor)),
                                       errorBorder: OutlineInputBorder(
                                           borderRadius: borderRadius12,
                                           borderSide: BorderSide(color: red)),
                                       focusedErrorBorder: OutlineInputBorder(
                                           borderRadius: borderRadius12,
-                                          borderSide: BorderSide(color: accentColor)),
+                                          borderSide: BorderSide(color: txtColor)),
                                     ),
                                   ),
                                 ),
@@ -133,7 +134,7 @@ class LoginControl extends StatelessWidget{
                                     textAlign: TextAlign.center,
                                     style: font.merge(
                                         TextStyle(
-                                            color: accentColor,
+                                            color: txtColor,
                                             letterSpacing: 1.4,
                                             fontWeight: FontWeight.w800
                                         )
@@ -141,19 +142,19 @@ class LoginControl extends StatelessWidget{
                                     decoration: InputDecoration(
                                       hintText: "Password",
                                       hintStyle: font.merge(
-                                          TextStyle(color: accentColor.withOpacity(0.3), letterSpacing: 1.2,)),
+                                          TextStyle(color: myGrey, letterSpacing: 1.2,)),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius: borderRadius12,
-                                          borderSide: BorderSide(color: accentColor.withOpacity(0.3))),
+                                          borderSide: BorderSide(color: myGrey)),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius: borderRadius12,
-                                          borderSide: BorderSide(color: accentColor)),
+                                          borderSide: BorderSide(color: txtColor)),
                                       errorBorder: OutlineInputBorder(
                                           borderRadius: borderRadius12,
                                           borderSide: BorderSide(color: red)),
                                       focusedErrorBorder: OutlineInputBorder(
                                           borderRadius: borderRadius12,
-                                          borderSide: BorderSide(color: accentColor)),
+                                          borderSide: BorderSide(color: txtColor)),
                                     ),
                                   ),
                                 ),
@@ -161,7 +162,7 @@ class LoginControl extends StatelessWidget{
                                   onTap: () async{
                                     print("connect");
                                     Helper.showLoader(context, "Connecting...", black, primaryColor);
-                                    await mr.masterLogin(name.text, password.text, ur.currentUser.id).then((value){
+                                    await mr.masterLogin(uname.text, password.text).then((value){
                                       Helper.removeLoader(context);
                                       if(value['success'] == 'true'){
                                         Navigator.of(context).pushNamedAndRemoveUntil('/Main', (route) => false);
@@ -181,13 +182,13 @@ class LoginControl extends StatelessWidget{
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                       borderRadius: borderRadius12,
-                                      color: accentColor,
-                                      // border: Border.all(color: accentColor)
+                                      color: themeColor,
+                                      // border: Border.all(color: txtColor)
                                     ),
                                     child: Text(
                                       "Connect",
                                       style: font.merge(TextStyle(
-                                          color: primaryColor,
+                                          color: txtColor,
                                           fontSize:
                                           MediaQuery.of(context).size.width * 0.042,
                                           letterSpacing: 1.2)),
@@ -206,7 +207,7 @@ class LoginControl extends StatelessWidget{
                                     child: Text(
                                       "Log in from another account?",
                                       style: font.merge(TextStyle(
-                                          color: secondColor
+                                          color: myGrey
                                       )),
                                     ),
                                   ),
@@ -262,7 +263,7 @@ class LoginControl extends StatelessWidget{
 //                         "Control Panel Login",
 //                       style: font.merge(TextStyle(
 //                           fontSize: MediaQuery.of(context).size.width * head3,
-//                           color: secondColor
+//                           color: txtColor
 //                       )),
 //                     ),
 //                   ),
@@ -290,7 +291,7 @@ class LoginControl extends StatelessWidget{
 //                               textAlign: TextAlign.center,
 //                               style: font.merge(
 //                                   TextStyle(
-//                                       color: accentColor,
+//                                       color: txtColor,
 //                                       letterSpacing: 1.4,
 //                                       fontWeight: FontWeight.w800
 //                                   )
@@ -298,19 +299,19 @@ class LoginControl extends StatelessWidget{
 //                               decoration: InputDecoration(
 //                                 hintText: "Device Name",
 //                                 hintStyle: font.merge(
-//                                     TextStyle(color: accentColor.withOpacity(0.3), letterSpacing: 1.2,)),
+//                                     TextStyle(color: txtColor.withOpacity(0.3), letterSpacing: 1.2,)),
 //                                 enabledBorder: OutlineInputBorder(
 //                                     borderRadius: borderRadius12,
-//                                     borderSide: BorderSide(color: accentColor.withOpacity(0.3))),
+//                                     borderSide: BorderSide(color: txtColor.withOpacity(0.3))),
 //                                 focusedBorder: OutlineInputBorder(
 //                                     borderRadius: borderRadius12,
-//                                     borderSide: BorderSide(color: accentColor)),
+//                                     borderSide: BorderSide(color: txtColor)),
 //                                 errorBorder: OutlineInputBorder(
 //                                     borderRadius: borderRadius12,
 //                                     borderSide: BorderSide(color: red)),
 //                                 focusedErrorBorder: OutlineInputBorder(
 //                                     borderRadius: borderRadius12,
-//                                     borderSide: BorderSide(color: accentColor)),
+//                                     borderSide: BorderSide(color: txtColor)),
 //                               ),
 //                             ),
 //                           ),
@@ -327,7 +328,7 @@ class LoginControl extends StatelessWidget{
 //                               textAlign: TextAlign.center,
 //                               style: font.merge(
 //                                   TextStyle(
-//                                       color: accentColor,
+//                                       color: txtColor,
 //                                       letterSpacing: 1.4,
 //                                       fontWeight: FontWeight.w800
 //                                   )
@@ -335,19 +336,19 @@ class LoginControl extends StatelessWidget{
 //                               decoration: InputDecoration(
 //                                 hintText: "Password",
 //                                 hintStyle: font.merge(
-//                                     TextStyle(color: accentColor.withOpacity(0.3), letterSpacing: 1.2,)),
+//                                     TextStyle(color: txtColor.withOpacity(0.3), letterSpacing: 1.2,)),
 //                                 enabledBorder: OutlineInputBorder(
 //                                     borderRadius: borderRadius12,
-//                                     borderSide: BorderSide(color: accentColor.withOpacity(0.3))),
+//                                     borderSide: BorderSide(color: txtColor.withOpacity(0.3))),
 //                                 focusedBorder: OutlineInputBorder(
 //                                     borderRadius: borderRadius12,
-//                                     borderSide: BorderSide(color: accentColor)),
+//                                     borderSide: BorderSide(color: txtColor)),
 //                                 errorBorder: OutlineInputBorder(
 //                                     borderRadius: borderRadius12,
 //                                     borderSide: BorderSide(color: red)),
 //                                 focusedErrorBorder: OutlineInputBorder(
 //                                     borderRadius: borderRadius12,
-//                                     borderSide: BorderSide(color: accentColor)),
+//                                     borderSide: BorderSide(color: txtColor)),
 //                               ),
 //                             ),
 //                           ),
@@ -363,8 +364,8 @@ class LoginControl extends StatelessWidget{
 //                               width: MediaQuery.of(context).size.width,
 //                               decoration: BoxDecoration(
 //                                   borderRadius: borderRadius12,
-//                                   color: accentColor,
-//                                 // border: Border.all(color: accentColor)
+//                                   color: txtColor,
+//                                 // border: Border.all(color: txtColor)
 //                               ),
 //                               child: Text(
 //                                 "Connect",
@@ -388,7 +389,7 @@ class LoginControl extends StatelessWidget{
 //                               child: Text(
 //                                 "Log in from another account?",
 //                                 style: font.merge(TextStyle(
-//                                   color: secondColor
+//                                   color: txtColor
 //                                 )),
 //                               ),
 //                             ),

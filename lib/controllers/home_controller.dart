@@ -23,8 +23,8 @@ class HomeController extends ControllerMVC{
   init() async{
 
     await fetchRooms();
-    rr.setUpRoomIcons();
-    fetchDevices().then((value){
+    // rr.setUpRoomIcons();
+    await fetchDevices().then((value){
       prepareRoomDeviceList();
     });
   }
@@ -44,32 +44,66 @@ class HomeController extends ControllerMVC{
         setState(() { });
       }
     });
-    print("room fwetched");
+    print("room fetched");
   }
 
   Future<void> fetchDevices() async{
     print("fetching devices, master level");
-    var qp = {
-      'master_id': mr.currentMaster!.id
-    };
+
 
     //master level device filter
-    await dr.getDevices(qp).then((res){
+    await dr.getDevices().then((res){
       if(res['success'] == 'true'){
         dr.myDevices.clear();
+        // curDevices.clear();
         for(var da in res['data']){
           Device d = Device.fromJson(da);
           dr.myDevices.add(d);
+          // curDevices.add(d);
         }
-        // devicedloaded = true;
+        // devicesloaded = true;
         // setState(() { });
       }
     });
   }
 
+  // Future<void> fetchDevices() async{
+  //   print("fetching devices, master level");
+  //   var qp = {
+  //     'room_id': currentRoomId
+  //   };
+  //
+  //   //master level device filter
+  //   await dr.getDevicesForRoom(qp).then((res){
+  //     if(res['success'] == 'true'){
+  //       dr.myDevices.clear();
+  //       curDevices.clear();
+  //       for(var da in res['data']){
+  //         Device d = Device.fromJson(da);
+  //         // dr.myDevices.add(d);
+  //         curDevices.add(d);
+  //       }
+  //       devicesloaded = true;
+  //       setState(() { });
+  //     }
+  //   });
+  // }
+
+  // Future<void> roomChange(newroomid) async{
+  //   currentRoomId = newroomid;
+  //   devicesloaded = false;
+  //   await fetchDevices();
+  //   // setState(() {
+  //   //
+  //   // });
+  //   // await Future.delayed(Duration(seconds: 2), (){});
+  //   // prepareRoomDeviceList();
+  // }
+
   Future<void> roomChange(newroomid) async{
     currentRoomId = newroomid;
     devicesloaded = false;
+    // await fetchDevices();
     // setState(() {
     //
     // });
